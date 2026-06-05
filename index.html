@@ -3,159 +3,158 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Good Day Cafeteria</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <title>Good Day Cafeteria | Premium Concept</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-light: #f8fafc;
-      --card-bg: #ffffff;
-      --teal: #6dbbc5;
-      --green: #8dc63f;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
+      --bg-cinema: #0a0c10; /* Deep movie UI charcoal/black */
+      --card-gradient: linear-gradient(180deg, rgba(10,12,16,0) 40%, rgba(10,12,16,0.95) 100%);
+      --teal-glow: #54b2c0;
+      --green-accent: #8dc63f;
+      --surface: #131722;
+      --border-line: rgba(255,255,255,0.06);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-light); color: var(--text-main); line-height: 1.5; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-cinema); color: #ffffff; overflow-x: hidden; line-height: 1.4; }
 
-    /* --- BRAND HEADER --- */
-    header { background: #ffffff; padding: 15px; display: flex; justify-content: center; border-bottom: 1px solid #e2e8f0; }
-    .logo-circle { 
-      width: 90px; 
-      height: 90px; 
-      border-radius: 50%; 
-      overflow: hidden; 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      background: #fff;
+    /* --- NAVIGATION BRAND BAR --- */
+    .cinema-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 12, 16, 0.85);
+      backdrop-filter: blur(20px);
+      padding: 16px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid var(--border-line);
     }
-    .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+    .logo-frame { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; background: #fff; }
+    .logo-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .status-badge { background: rgba(141, 198, 63, 0.15); color: var(--green-accent); font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 30px; letter-spacing: 0.5px; }
 
-    /* --- HERO DISPLAY --- */
-    .hero { text-align: center; padding: 35px 20px; background: #ffffff; }
-    .hero h1 { font-size: 2.2rem; font-weight: 800; color: var(--text-main); letter-spacing: -1px; line-height: 1.2; }
-    .hero h1 span { color: var(--teal); }
-    .hero p { color: var(--text-muted); font-size: 1rem; margin-top: 8px; max-width: 320px; margin-left: auto; margin-right: auto; }
-    
-    .cta-button { 
-      display: inline-block; width: 100%; max-width: 300px; background: var(--teal); color: white; 
-      padding: 16px; font-weight: 700; border-radius: 12px; text-decoration: none; 
-      margin-top: 20px; box-shadow: 0 4px 12px rgba(109, 187, 197, 0.3); text-align: center;
+    /* --- MAIN HERO BILLBOARD (FEATURED MOVIE STYLE) --- */
+    .billboard {
+      position: relative;
+      height: 75vh;
+      width: 100%;
+      display: flex; align-items: flex-end;
+      padding: 30px 20px;
+      background: #000;
     }
-
-    /* --- TICKER BANNER --- */
-    .ticker { background: var(--green); color: white; padding: 10px 0; overflow: hidden; font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
-    .ticker-inner { display: inline-block; animation: loop 25s linear infinite; }
-    .ticker-inner span { margin-right: 30px; }
-    @keyframes loop { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
-
-    /* --- SECTION TITLES --- */
-    .section-title { font-size: 1.3rem; font-weight: 800; padding: 25px 20px 10px; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; }
-
-    /* --- CLEAN MULTIMEDIA FEED --- */
-    .feed-container { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; }
-    .feed-card { background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; }
+    .billboard-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.65; }
+    .billboard-overlay { position: absolute; inset: 0; background: var(--card-gradient); z-index: 1; }
     
-    .video-container { width: 100%; aspect-ratio: 1 / 1; background: #000; }
-    .video-container video { width: 100%; height: 100%; object-fit: cover; }
+    .billboard-meta { position: relative; z-index: 2; width: 100%; }
+    .category-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--teal-glow); margin-bottom: 6px; display: inline-block; }
+    .billboard h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 8px; }
+    .billboard p { font-size: 0.9rem; color: #94a3b8; font-weight: 300; margin-bottom: 24px; max-width: 90%; }
     
-    .feed-label { padding: 14px 16px; font-weight: 700; font-size: 1rem; border-top: 1px solid #f1f5f9; }
+    .action-row { display: flex; gap: 12px; }
+    .btn-action { flex: 1; padding: 16px; border-radius: 12px; font-weight: 700; font-size: 0.9rem; text-decoration: none; text-align: center; border: none; }
+    .btn-play { background: #ffffff; color: #0a0c10; box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
+    .btn-info { background: rgba(255,255,255,0.1); color: #ffffff; backdrop-filter: blur(10px); }
 
-    /* --- FOOD GRID --- */
-    .food-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 20px 25px; }
-    .food-item { background: var(--card-bg); aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
-    .food-item img { width: 100%; height: 100%; object-fit: cover; }
+    /* --- HORIZONTAL STREAMING CHANNELS --- */
+    .row-headline { font-size: 1.1rem; font-weight: 700; padding: 30px 20px 14px; letter-spacing: -0.3px; display: flex; justify-content: space-between; align-items: center; }
+    .row-headline span { font-size: 0.75rem; color: var(--teal-glow); font-weight: 600; }
+    
+    .movie-lane { display: flex; gap: 14px; overflow-x: auto; padding: 0 20px 10px; scrollbar-width: none; }
+    .movie-lane::-webkit-scrollbar { display: none; }
+    
+    /* --- VERTICAL WIDESCREEN VIDEO CARDS --- */
+    .cinema-card { min-width: 280px; width: 280px; background: var(--surface); border-radius: 14px; overflow: hidden; border: 1px solid var(--border-line); }
+    .video-frame { width: 100%; aspect-ratio: 16 / 9; background: #000; position: relative; }
+    .video-frame video { width: 100%; height: 100%; object-fit: cover; }
+    .cinema-card-info { padding: 14px; font-weight: 600; font-size: 0.9rem; }
 
-    /* --- BUSINESS DETAILS --- */
-    .details-box { background: var(--card-bg); margin: 0 20px 25px; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-    .details-box h3 { font-size: 0.85rem; color: var(--teal); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-    .details-box p { font-size: 1rem; font-weight: 700; color: var(--text-main); margin-bottom: 16px; }
-    .details-box p:last-child { margin-bottom: 0; }
+    /* --- SQUARE IMAGE COVERS --- */
+    .square-lane { display: flex; gap: 12px; overflow-x: auto; padding: 0 20px; scrollbar-width: none; }
+    .square-lane::-webkit-scrollbar { display: none; }
+    .square-poster { min-width: 140px; width: 140px; aspect-ratio: 1 / 1; background: var(--surface); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-line); }
+    .square-poster img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* --- FOOTER --- */
-    footer { background: #1e293b; color: #ffffff; padding: 35px 20px; text-align: center; font-size: 0.9rem; }
-    footer .phone { color: var(--teal); font-size: 1.2rem; font-weight: 800; text-decoration: none; display: block; margin-bottom: 10px; }
-    footer .copy { color: #94a3b8; }
+    /* --- INFO PANEL PANEL --- */
+    .meta-slate { background: var(--surface); margin: 30px 20px; padding: 20px; border-radius: 16px; border: 1px solid var(--border-line); }
+    .meta-slate h4 { font-size: 0.75rem; text-transform: uppercase; color: var(--teal-glow); letter-spacing: 1px; margin-bottom: 4px; }
+    .meta-slate p { font-size: 1rem; font-weight: 600; margin-bottom: 16px; color: #e2e8f0; }
+    .meta-slate p:last-child { margin-bottom: 0; }
+
+    /* --- FOOTER BRADING --- */
+    footer { background: #020408; padding: 40px 20px; text-align: center; border-top: 1px solid var(--border-line); }
+    footer p { font-size: 0.8rem; color: #475569; margin-top: 10px; }
   </style>
 </head>
 <body>
 
-  <!-- CLEAN CIRCULAR LOGO HEADER -->
-  <header>
-    <div class="logo-circle">
-      <img src="images/goodday-logo.png" alt="Good Day Cafeteria Logo">
+  <!-- STICKY TOP BRAND BAR -->
+  <nav class="cinema-nav">
+    <div class="logo-frame">
+      <img src="images/goodday-logo.png" alt="Logo">
     </div>
-  </header>
+    <div class="status-badge">● Serving Lunch Now</div>
+  </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>It's Time To Have A<br><span>Good Day! 🙂</span></h1>
-    <p>Your favorite fresh cafe meals and traditional cafeteria options all in one place.</p>
-    <a href="tel:+18768190186" class="cta-button">Call to Order Now</a>
+  <!-- MOVIE BILLBOARD (VIDEO 1 BACKDROP) -->
+  <section class="billboard">
+    <video class="billboard-video" src="images/video1.mp4" loop muted autoplay playsinline webkit-playsinline></video>
+    <div class="billboard-overlay"></div>
+    <div class="billboard-meta">
+      <span class="category-tag">Trending Daily</span>
+      <h1>Good Day Cafeteria</h1>
+      <p>Dive into Montego Bay's premium spot for hot local lunch specialties, wraps, cakes, and frappes.</p>
+      <div class="action-row">
+        <a href="tel:+18768190186" class="btn-action btn-play">Call to Order</a>
+        <a href="#menu-lane" class="btn-action btn-info">Browse Menu</a>
+      </div>
+    </div>
   </section>
 
-  <!-- BANNER TICKER -->
-  <div class="ticker">
-    <div class="ticker-inner">
-      <span>✦ GOOD FOOD, GOOD VIBES, GOOD DAY!</span>
-      <span>✦ ORDER FROM THE CAFE OR CAFETERIA</span>
-      <span>✦ MONTEGO BAY, JAMAICA</span>
-      <span>✦ GOOD FOOD, GOOD VIBES, GOOD DAY!</span>
-    </div>
-  </div>
-
-  <!-- VIDEO INSTAGRAM FEED (LITERAL FILENAMES DIRECT FROM REPO) -->
-  <h2 class="section-title">Latest From Our Kitchen</h2>
-  <div class="feed-container">
+  <!-- VIDEO TRAILERS LANE (WIDESCREEN VIDEO CARDS) -->
+  <div class="row-headline">Featured Vibe Trailers <span>See All</span></div>
+  <div class="movie-lane">
     
-    <!-- Video 1 -->
-    <div class="feed-card">
-      <div class="video-container">
-        <video src="images/It’s time to have a Good Day 🙂! Your favorite meals in one place.#gooddaycafeteria #restaurant .mp4" loop muted autoplay playsinline></video>
+    <!-- Card 1 (Video 2) -->
+    <div class="cinema-card">
+      <div class="video-frame">
+        <video src="images/video2.mp4" loop muted autoplay playsinline webkit-playsinline></video>
       </div>
-      <div class="feed-label">Your Favorite Meals In One Place 🍱</div>
+      <div class="cinema-card-info">Delicious Menu Selections</div>
     </div>
 
-    <!-- Video 2 -->
-    <div class="feed-card">
-      <div class="video-container">
-        <video src="images/We are open for business! Come an experience our delicious menu options. It’s time to have a goo.mp4" loop muted autoplay playsinline></video>
+    <!-- Card 2 (Video 3) -->
+    <div class="cinema-card">
+      <div class="video-frame">
+        <video src="images/video3.mp4" loop muted autoplay playsinline webkit-playsinline></video>
       </div>
-      <div class="feed-label">Delicious Menu Options 🥞</div>
-    </div>
-
-    <!-- Video 3 -->
-    <div class="feed-card">
-      <div class="video-container">
-        <video src="images/MONDAY MOOD- Proof that the secret ingredient is good vibes. 😆🍳🔥The team at Good Day Cafeteri.mp4" loop muted autoplay playsinline></video>
-      </div>
-      <div class="feed-label">Good Vibes with the Team 🍳🔥</div>
+      <div class="cinema-card-info">Kitchen Vibes & Preparation</div>
     </div>
 
   </div>
 
-  <!-- LOCATION & HOURS -->
-  <h2 class="section-title">Visit Us</h2>
-  <div class="details-box">
-    <h3>Our Address</h3>
+  <!-- PHOTO POSTERS GRID LANE -->
+  <div class="row-headline" id="menu-lane">Signature Menu Originals <span>4 Items</span></div>
+  <div class="square-lane">
+    <div class="square-poster"><img src="images/dish-1.jpg" alt="Dish 1"></div>
+    <div class="square-poster"><img src="images/dish-2.jpg" alt="Dish 2"></div>
+    <div class="square-poster"><img src="images/dish-3.jpg" alt="Dish 3"></div>
+    <div class="square-poster"><img src="images/dish-4.jpg" alt="Dish 4"></div>
+  </div>
+
+  <!-- PRODUCTION DETAILS (HOURS / INFO) -->
+  <div class="row-headline">Location Info</div>
+  <div class="meta-slate">
+    <h4>Studio Location</h4>
     <p>30-34 Market Street, Montego Bay</p>
 
-    <h3>Opening Hours</h3>
+    <h4>Showtimes / Operating Hours</h4>
     <p>Mon - Thurs & Sat: 7:00 AM - 6:00 PM<br>Fridays: 7:00 AM - 7:00 PM</p>
   </div>
 
-  <!-- SIGNATURE DISHES PHOTOS -->
-  <h2 class="section-title">Menu Favorites</h2>
-  <div class="food-grid">
-    <div class="food-item"><img src="images/dish-1.jpg" alt="Menu Item 1"></div>
-    <div class="food-item"><img src="images/dish-2.jpg" alt="Menu Item 2"></div>
-    <div class="food-item"><img src="images/dish-3.jpg" alt="Menu Item 3"></div>
-    <div class="food-item"><img src="images/dish-4.jpg" alt="Menu Item 4"></div>
-  </div>
-
-  <!-- FOOTER -->
+  <!-- CINEMA FOOTER -->
   <footer>
-    <a href="tel:+18768190186" class="phone">Call: +1 (876) 819-0186</a>
-    <p class="copy">© 2026 Good Day Cafeteria. All Rights Reserved.</p>
+    <p style="color: var(--teal-glow); font-weight: 700; font-size: 1rem;">ORDER LINE: +1 (876) 819-0186</p>
+    <p>© 2026 Good Day Cafeteria Network. Designed sleek.</p>
   </footer>
 
 </body>
