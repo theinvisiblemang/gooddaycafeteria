@@ -6,16 +6,15 @@
   <title>Good Day Cafeteria | Blended Concept</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Blending clean app UI typography with elegant heritage serif & organic script handwriting -->
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg-cinema: #0a0c10;       /* Flixer deep base black */
-      --surface-card: #131722;    /* Dark app lane tile background */
-      --teal-glow: #54b2c0;       /* Vibrant teal accent line */
-      --mustard: #e59a26;         /* Organic scrapbook warm gold accent */
-      --green-accent: #8dc63f;    /* Ticker banner green */
+      --bg-cinema: #0a0c10;       
+      --surface-card: #131722;    
+      --teal-glow: #54b2c0;       
+      --mustard: #e59a26;         
+      --green-accent: #8dc63f;    
       --border-line: rgba(255,255,255,0.06);
       --card-gradient: linear-gradient(180deg, rgba(10,12,16,0) 20%, rgba(10,12,16,0.95) 100%);
     }
@@ -23,32 +22,68 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-cinema); color: #ffffff; overflow-x: hidden; line-height: 1.4; }
 
-    /* --- 1. FLIXER STARTUP ANIMATION OVERLAY --- */
+    /* --- 1. FIXED FLIXER STARTUP ANIMATION OVERLAY --- */
     #splash-screen {
-      position: fixed; inset: 0; z-index: 9999;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      background: radial-gradient(circle, rgba(138,23,23,0.15) 0%, rgba(0,0,0,1) 70%);
-      animation: fadeOutSplash 0.5s ease-in-out forwards;
+      position: fixed; 
+      inset: 0; 
+      z-index: 9999;
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center;
+      /* FIXED: Changed from transparent radial gradient to solid pure black background to fully block out the website content initially */
+      background: #000000;
+      animation: fadeOutSplash 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
       animation-delay: 3.2s;
       pointer-events: none;
     }
-    .splash-logo {
-      font-size: 3rem; font-weight: 800; color: #e50914; letter-spacing: 4px; text-transform: uppercase;
-      opacity: 0; transform: scale(0.6);
-      animation: flixerZoom 2.5s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
-      animation-delay: 0.4s;
+    
+    /* ADDED: Subtle ambient inner red glow container that won't leak the homepage layout */
+    .splash-glow-container {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(138,23,23,0.25) 0%, rgba(0,0,0,0) 70%);
+      z-index: 1;
     }
+
+    .splash-logo {
+      font-size: 3.2rem; 
+      font-weight: 800; 
+      color: #e50914; 
+      letter-spacing: 4px; 
+      text-transform: uppercase;
+      opacity: 0; 
+      transform: scale(0.65);
+      z-index: 2;
+      /* Smooth cubic scaling mimicking flixer.su */
+      animation: flixerZoom 2.4s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+      animation-delay: 0.3s;
+    }
+    
     .splash-build {
-      position: absolute; bottom: 30px; left: 20px; font-size: 0.65rem; color: rgba(255,255,255,0.3); letter-spacing: 1px; display: flex; align-items: center; gap: 6px;
+      position: absolute; 
+      bottom: 30px; 
+      left: 20px; 
+      font-size: 0.65rem; 
+      color: rgba(255,255,255,0.3); 
+      letter-spacing: 1px; 
+      display: flex; 
+      align-items: center; 
+      gap: 6px;
+      z-index: 2;
     }
     .build-dot { width: 6px; height: 6px; background: #e50914; border-radius: 50%; }
 
     @keyframes flixerZoom {
       0% { opacity: 0; transform: scale(0.65); filter: blur(4px); }
-      30% { opacity: 1; filter: blur(0px); }
-      100% { opacity: 1; transform: scale(1.05); letter-spacing: 6px; }
+      25% { opacity: 1; filter: blur(0px); }
+      100% { opacity: 1; transform: scale(1.02); letter-spacing: 6px; }
     }
-    @keyframes fadeOutSplash { to { opacity: 0; visibility: hidden; } }
+    
+    @keyframes fadeOutSplash {
+      0% { opacity: 1; visibility: visible; }
+      100% { opacity: 0; visibility: hidden; }
+    }
 
     /* --- 2. FLICKYSTREAM TRANSPARENT NAV HEADER --- */
     .cinema-nav {
@@ -99,16 +134,15 @@
     .movie-lane { display: flex; gap: 16px; overflow-x: auto; padding: 5px 20px 15px; scrollbar-width: none; }
     .movie-lane::-webkit-scrollbar { display: none; }
 
-    /* --- 5. BLENDED: STREAMING CARDS WITH STAMP EDGES --- */
+    /* --- 5. STREAMING CARDS WITH STAMP EDGES --- */
     .cinema-stamp-card { 
       min-width: 270px; width: 270px; 
-      background: white; /* Clean paper background for contrast */
+      background: white; 
       padding: 12px; border-radius: 4px;
       border: 1px solid rgba(255,255,255,0.15);
       box-shadow: 0 6px 15px rgba(0,0,0,0.4);
       position: relative;
     }
-    /* Jagged stamp border overlay trace */
     .cinema-stamp-card::after {
       content: ''; position: absolute; inset: 4px; border: 1px dashed var(--mustard); pointer-events: none;
     }
@@ -119,11 +153,10 @@
     .card-caption h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #1c2b21; }
     .card-caption p { font-family: 'Caveat', cursive; color: var(--mustard); font-size: 1.1rem; }
 
-    /* Subtle alternate stamp angles mimicking a real application scrapbook */
     .movie-lane .cinema-stamp-card:nth-child(even) { transform: rotate(1deg); }
     .movie-lane .cinema-stamp-card:nth-child(odd) { transform: rotate(-0.5deg); }
 
-    /* --- 6. BLENDED: PHOTO POSTCARDS IN HORIZONTAL SLIDER --- */
+    /* --- 6. PHOTO POSTCARDS IN HORIZONTAL SLIDER --- */
     .postcard-tile { 
       min-width: 140px; width: 140px; aspect-ratio: 1 / 1; 
       background: #ffffff; padding: 6px; 
@@ -154,15 +187,16 @@
 </head>
 <body>
 
-  <!-- 1. FLIXER STARTUP SPLASHSCREEN -->
+  <!-- FIXED FLIXER STARTUP SPLASHSCREEN -->
   <div id="splash-screen">
+    <div class="splash-glow-container"></div>
     <div class="splash-logo">Good Day</div>
     <div class="splash-build">
       <div class="build-dot"></div> PRODUCTION REEL BUILD 0605-2026
     </div>
   </div>
 
-  <!-- 2. FLICKYSTREAM STYLE BLURRED FLOATING TOP NAV -->
+  <!-- FLICKYSTREAM STYLE BLURRED FLOATING TOP NAV -->
   <nav class="cinema-nav">
     <div class="logo-frame">
       <img src="images/goodday-logo.png" alt="Logo">
@@ -170,7 +204,7 @@
     <div class="status-badge">● Streaming Fresh</div>
   </nav>
 
-  <!-- 3. HERO VIDEO BILLBOARD -->
+  <!-- HERO VIDEO BILLBOARD -->
   <section class="billboard">
     <video class="billboard-video" src="images/video1.mp4" loop muted autoplay playsinline webkit-playsinline></video>
     <div class="billboard-overlay"></div>
@@ -185,7 +219,7 @@
     </div>
   </section>
 
-  <!-- 4. ORGANIC RUNNING GREEN TEXT TICKER -->
+  <!-- ORGANIC RUNNING GREEN TEXT TICKER -->
   <div class="ticker">
     <div class="ticker-content">
       <span>✦ GOOD FOOD, GOOD VIBES, GOOD DAY</span>
@@ -195,7 +229,7 @@
     </div>
   </div>
 
-  <!-- 5. BLENDED VIDEO TRAILER CHANNEL (STAMP TILES OVER STREAMING LANE) -->
+  <!-- VIDEO TRAILER CHANNEL -->
   <div class="row-headline">
     <div class="scrapbook-sub">See what's cooking</div>
     <h2>Featured Kitchen Feeds <span>See All</span></h2>
@@ -227,7 +261,7 @@
 
   </div>
 
-  <!-- 6. BLENDED PHOTO LANES (POSTCARD POLAROIDS INSIDE CAROUSEL) -->
+  <!-- PHOTO LANES -->
   <div class="row-headline" id="menu-lane">
     <div class="scrapbook-sub">Handpicked Daily Originals</div>
     <h2>Signature Favourites <span>4 Items</span></h2>
@@ -240,7 +274,7 @@
     <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-4.jpg" alt="Dish 4"></div></div>
   </div>
 
-  <!-- PRODUCTION META DATA SLATE -->
+  <!-- PRODUCTION METADATA PANEL -->
   <div class="row-headline">
     <div class="scrapbook-sub">Where to Find Us</div>
     <h2>Location & Showtimes</h2>
