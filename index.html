@@ -3,158 +3,413 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Good Day Cafeteria | Premium Concept</title>
+  <title>Good Day Cafeteria | Homestyle Goodness</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Using Playfair for the elegant serifs and Gaegu/Caveat to emulate the friendly handwritten font notes -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg-cinema: #0a0c10; /* Deep movie UI charcoal/black */
-      --card-gradient: linear-gradient(180deg, rgba(10,12,16,0) 40%, rgba(10,12,16,0.95) 100%);
-      --teal-glow: #54b2c0;
-      --green-accent: #8dc63f;
-      --surface: #131722;
-      --border-line: rgba(255,255,255,0.06);
+      --bg-cream: #f4eee1;      /* The soft, warm organic background from the images */
+      --forest-green: #294c33;  /* Deep heritage green */
+      --mustard: #e59a26;       /* Warm yellow/orange accent tone */
+      --text-dark: #1c2b21;     /* Soft dark green-tinted charcoal for readable text */
+      --card-white: #faf8f5;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-cinema); color: #ffffff; overflow-x: hidden; line-height: 1.4; }
-
-    /* --- NAVIGATION BRAND BAR --- */
-    .cinema-nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(10, 12, 16, 0.85);
-      backdrop-filter: blur(20px);
-      padding: 16px 20px;
-      display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid var(--border-line);
+    body { 
+      font-family: 'Plus Jakarta Sans', sans-serif; 
+      background-color: var(--bg-cream); 
+      color: var(--text-dark);
+      line-height: 1.5;
     }
-    .logo-frame { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; background: #fff; }
-    .logo-frame img { width: 100%; height: 100%; object-fit: cover; }
-    .status-badge { background: rgba(141, 198, 63, 0.15); color: var(--green-accent); font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 30px; letter-spacing: 0.5px; }
 
-    /* --- MAIN HERO BILLBOARD (FEATURED MOVIE STYLE) --- */
-    .billboard {
+    /* --- ORGANIC HEADER --- */
+    header { 
+      background: var(--forest-green); 
+      padding: 20px; 
+      text-align: center;
+      border-bottom: 4px dashed var(--mustard);
       position: relative;
-      height: 75vh;
-      width: 100%;
-      display: flex; align-items: flex-end;
-      padding: 30px 20px;
-      background: #000;
     }
-    .billboard-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.65; }
-    .billboard-overlay { position: absolute; inset: 0; background: var(--card-gradient); z-index: 1; }
-    
-    .billboard-meta { position: relative; z-index: 2; width: 100%; }
-    .category-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--teal-glow); margin-bottom: 6px; display: inline-block; }
-    .billboard h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 8px; }
-    .billboard p { font-size: 0.9rem; color: #94a3b8; font-weight: 300; margin-bottom: 24px; max-width: 90%; }
-    
-    .action-row { display: flex; gap: 12px; }
-    .btn-action { flex: 1; padding: 16px; border-radius: 12px; font-weight: 700; font-size: 0.9rem; text-decoration: none; text-align: center; border: none; }
-    .btn-play { background: #ffffff; color: #0a0c10; box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
-    .btn-info { background: rgba(255,255,255,0.1); color: #ffffff; backdrop-filter: blur(10px); }
+    .logo-container {
+      width: 85px; height: 85px;
+      background: white;
+      border-radius: 50%;
+      margin: 0 auto;
+      padding: 4px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .logo-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
-    /* --- HORIZONTAL STREAMING CHANNELS --- */
-    .row-headline { font-size: 1.1rem; font-weight: 700; padding: 30px 20px 14px; letter-spacing: -0.3px; display: flex; justify-content: space-between; align-items: center; }
-    .row-headline span { font-size: 0.75rem; color: var(--teal-glow); font-weight: 600; }
+    /* --- HERO SCRAPBOOK BANNER --- */
+    .hero {
+      padding: 40px 24px;
+      text-align: center;
+      position: relative;
+    }
+    .welcome-note {
+      font-family: 'Caveat', cursive;
+      color: var(--mustard);
+      font-size: 1.6rem;
+      margin-bottom: 5px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--forest-green);
+      line-height: 1.1;
+      margin-bottom: 15px;
+    }
+    .hero h1 span {
+      font-family: 'Caveat', cursive;
+      color: var(--mustard);
+      font-weight: 700;
+      display: block;
+      font-size: 2.8rem;
+      margin-top: 5px;
+      transform: rotate(-2deg);
+    }
+    .hero p {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      max-width: 320px;
+      margin: 0 auto 25px;
+      opacity: 0.85;
+    }
+
+    /* --- VINTAGE STAMP BUTTONS --- */
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn-stamp {
+      display: block;
+      width: 100%;
+      max-width: 280px;
+      padding: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-align: center;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      position: relative;
+    }
+    .btn-primary {
+      background: var(--forest-green);
+      color: white;
+      border: 2px solid var(--forest-green);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--forest-green);
+      border: 2px dashed var(--forest-green);
+    }
+
+    /* --- MARQUEE TICKER (Dashed Aesthetic) --- */
+    .ticker {
+      background: var(--mustard);
+      color: white;
+      padding: 12px 0;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 25px 0;
+      border-top: 2px dashed rgba(255,255,255,0.4);
+      border-bottom: 2px dashed rgba(255,255,255,0.4);
+    }
+    .ticker-content {
+      display: inline-block;
+      animation: scrollTicker 20s linear infinite;
+    }
+    .ticker-content span { margin-right: 40px; }
+    @keyframes scrollTicker {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    /* --- SECTION TITLES --- */
+    .section-header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding: 0 20px;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--forest-green);
+    }
+    .section-header .sub {
+      font-family: 'Caveat', cursive;
+      color: var(--mustard);
+      font-size: 1.4rem;
+    }
+
+    /* --- VINTAGE STAMP / POSTCARD VIDEO FEED --- */
+    .scrapbook-feed {
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
     
-    .movie-lane { display: flex; gap: 14px; overflow-x: auto; padding: 0 20px 10px; scrollbar-width: none; }
-    .movie-lane::-webkit-scrollbar { display: none; }
+    /* This creates the signature postage stamp jagged border previewed in the layout styles */
+    .stamp-card {
+      background: white;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(41, 76, 51, 0.08);
+      border: 1px solid #e8dec9;
+      position: relative;
+    }
+    /* Simple CSS stamp-edge emulation */
+    .stamp-card::after {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border: 1px dashed var(--mustard);
+      pointer-events: none;
+    }
     
-    /* --- VERTICAL WIDESCREEN VIDEO CARDS --- */
-    .cinema-card { min-width: 280px; width: 280px; background: var(--surface); border-radius: 14px; overflow: hidden; border: 1px solid var(--border-line); }
-    .video-frame { width: 100%; aspect-ratio: 16 / 9; background: #000; position: relative; }
-    .video-frame video { width: 100%; height: 100%; object-fit: cover; }
-    .cinema-card-info { padding: 14px; font-weight: 600; font-size: 0.9rem; }
+    .stamp-video-wrapper {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #000;
+      overflow: hidden;
+      position: relative;
+    }
+    .stamp-video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .stamp-caption {
+      padding-top: 15px;
+      text-align: center;
+    }
+    .stamp-caption h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--forest-green);
+    }
+    .stamp-caption p {
+      font-family: 'Caveat', cursive;
+      color: var(--mustard);
+      font-size: 1.25rem;
+    }
 
-    /* --- SQUARE IMAGE COVERS --- */
-    .square-lane { display: flex; gap: 12px; overflow-x: auto; padding: 0 20px; scrollbar-width: none; }
-    .square-lane::-webkit-scrollbar { display: none; }
-    .square-poster { min-width: 140px; width: 140px; aspect-ratio: 1 / 1; background: var(--surface); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-line); }
-    .square-poster img { width: 100%; height: 100%; object-fit: cover; }
+    /* Alternating subtle card tilts to reinforce hand-made scrapbook feel */
+    .scrapbook-feed .stamp-card:nth-child(even) { transform: rotate(1deg); }
+    .scrapbook-feed .stamp-card:nth-child(odd) { transform: rotate(-1deg); }
 
-    /* --- INFO PANEL PANEL --- */
-    .meta-slate { background: var(--surface); margin: 30px 20px; padding: 20px; border-radius: 16px; border: 1px solid var(--border-line); }
-    .meta-slate h4 { font-size: 0.75rem; text-transform: uppercase; color: var(--teal-glow); letter-spacing: 1px; margin-bottom: 4px; }
-    .meta-slate p { font-size: 1rem; font-weight: 600; margin-bottom: 16px; color: #e2e8f0; }
-    .meta-slate p:last-child { margin-bottom: 0; }
+    /* --- SIGNATURE POSTER POSTCARDS (GRID) --- */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 0 20px 40px;
+    }
+    .menu-postcard {
+      background: white;
+      padding: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid #e8dec9;
+      transform: rotate(0.5deg);
+    }
+    .menu-postcard-inner {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #eee;
+    }
+    .menu-postcard-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-    /* --- FOOTER BRADING --- */
-    footer { background: #020408; padding: 40px 20px; text-align: center; border-top: 1px solid var(--border-line); }
-    footer p { font-size: 0.8rem; color: #475569; margin-top: 10px; }
+    /* --- HERITAGE INFO BLOCK --- */
+    .info-slab {
+      background: var(--forest-green);
+      color: white;
+      margin: 0 20px 40px;
+      padding: 30px 24px;
+      border-radius: 2px;
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .info-slab::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .info-section { margin-bottom: 20px; position: relative; z-index: 2; }
+    .info-section:last-child { margin-bottom: 0; }
+    
+    .info-section h4 {
+      font-family: 'Caveat', cursive;
+      color: var(--mustard);
+      font-size: 1.4rem;
+      margin-bottom: 2px;
+    }
+    .info-section p {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      background: #193020;
+      color: #f4eee1;
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 4px dashed var(--mustard);
+    }
+    footer .phone-link {
+      font-family: 'Playfair Display', serif;
+      color: var(--mustard);
+      font-size: 1.4rem;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    footer p {
+      font-size: 0.8rem;
+      opacity: 0.6;
+      letter-spacing: 0.5px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- STICKY TOP BRAND BAR -->
-  <nav class="cinema-nav">
-    <div class="logo-frame">
-      <img src="images/goodday-logo.png" alt="Logo">
+  <!-- ORGANIC CONTAINER WITH DASHED BORDER TRIMS -->
+  <header>
+    <div class="logo-container">
+      <img src="images/goodday-logo.png" alt="Good Day Cafeteria Logo">
     </div>
-    <div class="status-badge">● Serving Lunch Now</div>
-  </nav>
+  </header>
 
-  <!-- MOVIE BILLBOARD (VIDEO 1 BACKDROP) -->
-  <section class="billboard">
-    <video class="billboard-video" src="images/video1.mp4" loop muted autoplay playsinline webkit-playsinline></video>
-    <div class="billboard-overlay"></div>
-    <div class="billboard-meta">
-      <span class="category-tag">Trending Daily</span>
-      <h1>Good Day Cafeteria</h1>
-      <p>Dive into Montego Bay's premium spot for hot local lunch specialties, wraps, cakes, and frappes.</p>
-      <div class="action-row">
-        <a href="tel:+18768190186" class="btn-action btn-play">Call to Order</a>
-        <a href="#menu-lane" class="btn-action btn-info">Browse Menu</a>
-      </div>
+  <!-- SCRAPBOOK HERO INTRO -->
+  <section class="hero">
+    <div class="welcome-note">Welcome Home to</div>
+    <h1>Good Food & Good Vibes <span>Made Fresh Daily!</span></h1>
+    <p>Experience the authentic warmth of traditional cafeteria lunch platters and premium cafe treats in Montego Bay.</p>
+    
+    <div class="btn-container">
+      <a href="tel:+18768190186" class="btn-stamp btn-primary">Call to Order Now</a>
+      <a href="#menu-section" class="btn-stamp btn-secondary">Explore Our Menu</a>
     </div>
   </section>
 
-  <!-- VIDEO TRAILERS LANE (WIDESCREEN VIDEO CARDS) -->
-  <div class="row-headline">Featured Vibe Trailers <span>See All</span></div>
-  <div class="movie-lane">
+  <!-- HANDCRAFTED RUNNING TEXT BANNER -->
+  <div class="ticker">
+    <div class="ticker-content">
+      <span>✦ WARMTH IN EVERY BOWL & PLATTER</span>
+      <span>✦ LUNCH SPECIALS SERVED DAILY</span>
+      <span>✦ MONTEGO BAY CULINARY TRADITION</span>
+      <span>✦ WARMTH IN EVERY BOWL & PLATTER</span>
+    </div>
+  </div>
+
+  <!-- STAMP FRAME VIDEO FEED -->
+  <div class="section-header">
+    <div class="sub">See what's cooking</div>
+    <h2>From Our Kitchen Feed</h2>
+  </div>
+
+  <div class="scrapbook-feed">
     
-    <!-- Card 1 (Video 2) -->
-    <div class="cinema-card">
-      <div class="video-frame">
+    <!-- Postage Card Video 1 -->
+    <div class="stamp-card">
+      <div class="stamp-video-wrapper">
+        <video src="images/video1.mp4" loop muted autoplay playsinline webkit-playsinline></video>
+      </div>
+      <div class="stamp-caption">
+        <h3>Your Favorite Platter Destination</h3>
+        <p>Prepared daily with love</p>
+      </div>
+    </div>
+
+    <!-- Postage Card Video 2 -->
+    <div class="stamp-card">
+      <div class="stamp-video-wrapper">
         <video src="images/video2.mp4" loop muted autoplay playsinline webkit-playsinline></video>
       </div>
-      <div class="cinema-card-info">Delicious Menu Selections</div>
+      <div class="stamp-caption">
+        <h3>Fresh Ingredients, Rich Flavours</h3>
+        <p>Traditional style options</p>
+      </div>
     </div>
 
-    <!-- Card 2 (Video 3) -->
-    <div class="cinema-card">
-      <div class="video-frame">
+    <!-- Postage Card Video 3 -->
+    <div class="stamp-card">
+      <div class="stamp-video-wrapper">
         <video src="images/video3.mp4" loop muted autoplay playsinline webkit-playsinline></video>
       </div>
-      <div class="cinema-card-info">Kitchen Vibes & Preparation</div>
+      <div class="stamp-caption">
+        <h3>Good Vibes with the Good Day Team</h3>
+        <p>Always smiling, always ready</p>
+      </div>
     </div>
 
   </div>
 
-  <!-- PHOTO POSTERS GRID LANE -->
-  <div class="row-headline" id="menu-lane">Signature Menu Originals <span>4 Items</span></div>
-  <div class="square-lane">
-    <div class="square-poster"><img src="images/dish-1.jpg" alt="Dish 1"></div>
-    <div class="square-poster"><img src="images/dish-2.jpg" alt="Dish 2"></div>
-    <div class="square-poster"><img src="images/dish-3.jpg" alt="Dish 3"></div>
-    <div class="square-poster"><img src="images/dish-4.jpg" alt="Dish 4"></div>
+  <!-- HERITAGE TIMELINE INSPIRATION (HOURS & LOCATION SLAB) -->
+  <div class="section-header" style="margin-top: 45px;">
+    <div class="sub">Where to Find Us</div>
+    <h2>Our Little Corner</h2>
   </div>
 
-  <!-- PRODUCTION DETAILS (HOURS / INFO) -->
-  <div class="row-headline">Location Info</div>
-  <div class="meta-slate">
-    <h4>Studio Location</h4>
-    <p>30-34 Market Street, Montego Bay</p>
-
-    <h4>Showtimes / Operating Hours</h4>
-    <p>Mon - Thurs & Sat: 7:00 AM - 6:00 PM<br>Fridays: 7:00 AM - 7:00 PM</p>
+  <div class="info-slab">
+    <div class="info-section">
+      <h4>Our Location</h4>
+      <p>30–34 Market Street, Montego Bay</p>
+    </div>
+    
+    <div class="info-section">
+      <h4>Serving Hours</h4>
+      <p>Mon - Thurs & Sat: 7:00 AM – 6:00 PM</p>
+      <p>Fridays: 7:00 AM – 7:00 PM</p>
+    </div>
   </div>
 
-  <!-- CINEMA FOOTER -->
+  <!-- PICTURE POSTCARD FAVORITES GRID -->
+  <div class="section-header" id="menu-section">
+    <div class="sub">Handpicked Daily</div>
+    <h2>Signature Favourites</h2>
+  </div>
+
+  <div class="menu-grid">
+    <div class="menu-postcard">
+      <div class="menu-postcard-inner"><img src="images/dish-1.jpg" alt="Cafeteria Selection 1"></div>
+    </div>
+    <div class="menu-postcard">
+      <div class="menu-postcard-inner"><img src="images/dish-2.jpg" alt="Cafeteria Selection 2"></div>
+    </div>
+    <div class="menu-postcard">
+      <div class="menu-postcard-inner"><img src="images/dish-3.jpg" alt="Cafeteria Selection 3"></div>
+    </div>
+    <div class="menu-postcard">
+      <div class="menu-postcard-inner"><img src="images/dish-4.jpg" alt="Cafeteria Selection 4"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
   <footer>
-    <p style="color: var(--teal-glow); font-weight: 700; font-size: 1rem;">ORDER LINE: +1 (876) 819-0186</p>
-    <p>© 2026 Good Day Cafeteria Network. Designed sleek.</p>
+    <a href="tel:+18768190186" class="phone-link">+1 (876) 819-0186</a>
+    <p>© 2026 Good Day Cafeteria. Handcrafted Hub.</p>
   </footer>
 
 </body>
