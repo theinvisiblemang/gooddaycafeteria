@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Good Day Cafeteria | Blended Concept</title>
+  <title>Good Day Cafeteria | Official Network</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-cinema); color: #ffffff; overflow-x: hidden; line-height: 1.4; }
 
-    /* --- 1. FIXED FLIXER STARTUP ANIMATION OVERLAY --- */
+    /* --- 1. BRAND-MATCHED STARTUP ANIMATION OVERLAY --- */
     #splash-screen {
       position: fixed; 
       inset: 0; 
@@ -31,33 +31,44 @@
       flex-direction: column; 
       justify-content: center; 
       align-items: center;
-      /* FIXED: Changed from transparent radial gradient to solid pure black background to fully block out the website content initially */
+      /* Pure solid black background ensures zero layout layout leaking at start */
       background: #000000;
       animation: fadeOutSplash 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
       animation-delay: 3.2s;
       pointer-events: none;
     }
     
-    /* ADDED: Subtle ambient inner red glow container that won't leak the homepage layout */
     .splash-glow-container {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle, rgba(138,23,23,0.25) 0%, rgba(0,0,0,0) 70%);
+      background: radial-gradient(circle, rgba(229,154,38,0.15) 0%, rgba(0,0,0,0) 70%);
       z-index: 1;
     }
 
-    .splash-logo {
-      font-size: 3.2rem; 
-      font-weight: 800; 
-      color: #e50914; 
-      letter-spacing: 4px; 
-      text-transform: uppercase;
-      opacity: 0; 
-      transform: scale(0.65);
+    .splash-text-group {
+      text-align: center;
       z-index: 2;
-      /* Smooth cubic scaling mimicking flixer.su */
-      animation: flixerZoom 2.4s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
-      animation-delay: 0.3s;
+      opacity: 0;
+      transform: scale(0.85);
+      animation: brandZoom 2.5s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+      animation-delay: 0.2s;
+    }
+
+    .splash-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem; 
+      font-weight: 900; 
+      color: #ffffff; 
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+    
+    .splash-subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      color: var(--mustard); 
+      margin-top: 4px;
+      line-height: 1;
     }
     
     .splash-build {
@@ -72,12 +83,12 @@
       gap: 6px;
       z-index: 2;
     }
-    .build-dot { width: 6px; height: 6px; background: #e50914; border-radius: 50%; }
+    .build-dot { width: 6px; height: 6px; background: var(--mustard); border-radius: 50%; }
 
-    @keyframes flixerZoom {
-      0% { opacity: 0; transform: scale(0.65); filter: blur(4px); }
+    @keyframes brandZoom {
+      0% { opacity: 0; transform: scale(0.85); filter: blur(4px); }
       25% { opacity: 1; filter: blur(0px); }
-      100% { opacity: 1; transform: scale(1.02); letter-spacing: 6px; }
+      100% { opacity: 1; transform: scale(1.03); }
     }
     
     @keyframes fadeOutSplash {
@@ -85,7 +96,7 @@
       100% { opacity: 0; visibility: hidden; }
     }
 
-    /* --- 2. FLICKYSTREAM TRANSPARENT NAV HEADER --- */
+    /* --- 2. FLICKYSTREAM STYLE BLURRED FLOATING HEADER --- */
     .cinema-nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: linear-gradient(to bottom, rgba(10,12,16,0.85) 0%, rgba(10,12,16,0) 100%);
@@ -97,7 +108,7 @@
     .logo-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
     .status-badge { background: rgba(141, 198, 63, 0.18); color: var(--green-accent); font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 30px; }
 
-    /* --- 3. CINEMATIC BACKGROUND BILLBOARD --- */
+    /* --- 3. HERO VIDEO BILLBOARD DISPLAY --- */
     .billboard {
       position: relative; height: 78vh; width: 100%; display: flex; align-items: flex-end; padding: 30px 20px; background: #000;
     }
@@ -115,7 +126,7 @@
     .btn-play { background: var(--mustard); color: white; border: 1px solid var(--mustard); box-shadow: 0 4px 15px rgba(229, 154, 38, 0.3); }
     .btn-info { background: rgba(255,255,255,0.12); color: #ffffff; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
 
-    /* --- 4. ORGANIC RUNNING GREEN BANNER --- */
+    /* --- 4. RUNNING GREEN BRAND TICKER --- */
     .ticker {
       background: var(--green-accent); color: white; padding: 12px 0; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; overflow: hidden; white-space: nowrap;
       border-top: 2px dashed rgba(255,255,255,0.3); border-bottom: 2px dashed rgba(255,255,255,0.3);
@@ -124,17 +135,17 @@
     .ticker-content span { margin-right: 40px; }
     @keyframes scrollTicker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
 
-    /* --- STREAMING CATEGORY HEADLINES --- */
+    /* --- CATEGORY TITLES --- */
     .row-headline { padding: 25px 20px 14px; display: flex; flex-direction: column; gap: 2px; }
     .row-headline .scrapbook-sub { font-family: 'Caveat', cursive; color: var(--mustard); font-size: 1.4rem; line-height: 1; }
     .row-headline h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.3px; display: flex; justify-content: space-between; align-items: center; width: 100%; }
     .row-headline h2 span { font-size: 0.75rem; color: var(--teal-glow); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; text-transform: uppercase; }
 
-    /* --- HORIZONTAL LANES --- */
+    /* --- HORIZONTAL LANES CORES --- */
     .movie-lane { display: flex; gap: 16px; overflow-x: auto; padding: 5px 20px 15px; scrollbar-width: none; }
     .movie-lane::-webkit-scrollbar { display: none; }
 
-    /* --- 5. STREAMING CARDS WITH STAMP EDGES --- */
+    /* --- 5. CINEMA FEED STAMP FINISH CARDS --- */
     .cinema-stamp-card { 
       min-width: 270px; width: 270px; 
       background: white; 
@@ -156,7 +167,7 @@
     .movie-lane .cinema-stamp-card:nth-child(even) { transform: rotate(1deg); }
     .movie-lane .cinema-stamp-card:nth-child(odd) { transform: rotate(-0.5deg); }
 
-    /* --- 6. PHOTO POSTCARDS IN HORIZONTAL SLIDER --- */
+    /* --- 6. PICTURE COVERS CAROUSEL TILES --- */
     .postcard-tile { 
       min-width: 140px; width: 140px; aspect-ratio: 1 / 1; 
       background: #ffffff; padding: 6px; 
@@ -166,7 +177,7 @@
     .postcard-inner { width: 100%; height: 100%; overflow: hidden; background: #222; }
     .postcard-inner img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* --- STUDIO HERITAGE METADATA PANEL --- */
+    /* --- DATA OVERVIEW SLATE --- */
     .meta-slate { 
       background: var(--surface-card); margin: 25px 20px 40px; padding: 24px; border-radius: 16px; 
       border: 1px solid var(--border-line); position: relative;
@@ -179,7 +190,7 @@
     .info-section h4 { font-family: 'Caveat', cursive; color: var(--mustard); font-size: 1.4rem; margin-bottom: 2px; }
     .info-section p { font-size: 0.95rem; font-weight: 600; color: #e2e8f0; }
 
-    /* --- FOOTER --- */
+    /* --- FOOTER BRADING --- */
     footer { background: #040609; padding: 45px 20px; text-align: center; border-top: 1px solid var(--border-line); }
     footer .phone-link { font-family: 'Playfair Display', serif; color: var(--mustard); font-size: 1.4rem; text-decoration: none; font-weight: 700; display: inline-block; }
     footer p { font-size: 0.75rem; color: #475569; margin-top: 8px; }
@@ -187,16 +198,17 @@
 </head>
 <body>
 
-  <!-- FIXED FLIXER STARTUP SPLASHSCREEN -->
   <div id="splash-screen">
     <div class="splash-glow-container"></div>
-    <div class="splash-logo">Good Day</div>
+    <div class="splash-text-group">
+      <div class="splash-logo">Good Day</div>
+      <div class="splash-subtitle">Cafeteria</div>
+    </div>
     <div class="splash-build">
       <div class="build-dot"></div> PRODUCTION REEL BUILD 0605-2026
     </div>
   </div>
 
-  <!-- FLICKYSTREAM STYLE BLURRED FLOATING TOP NAV -->
   <nav class="cinema-nav">
     <div class="logo-frame">
       <img src="images/goodday-logo.png" alt="Logo">
@@ -204,7 +216,6 @@
     <div class="status-badge">● Streaming Fresh</div>
   </nav>
 
-  <!-- HERO VIDEO BILLBOARD -->
   <section class="billboard">
     <video class="billboard-video" src="images/video1.mp4" loop muted autoplay playsinline webkit-playsinline></video>
     <div class="billboard-overlay"></div>
@@ -219,7 +230,6 @@
     </div>
   </section>
 
-  <!-- ORGANIC RUNNING GREEN TEXT TICKER -->
   <div class="ticker">
     <div class="ticker-content">
       <span>✦ GOOD FOOD, GOOD VIBES, GOOD DAY</span>
@@ -229,15 +239,12 @@
     </div>
   </div>
 
-  <!-- VIDEO TRAILER CHANNEL -->
   <div class="row-headline">
     <div class="scrapbook-sub">See what's cooking</div>
     <h2>Featured Kitchen Feeds <span>See All</span></h2>
   </div>
 
   <div class="movie-lane">
-    
-    <!-- Video Stamp 1 -->
     <div class="cinema-stamp-card">
       <div class="video-frame">
         <video src="images/video2.mp4" loop muted autoplay playsinline webkit-playsinline></video>
@@ -248,7 +255,6 @@
       </div>
     </div>
 
-    <!-- Video Stamp 2 -->
     <div class="cinema-stamp-card">
       <div class="video-frame">
         <video src="images/video3.mp4" loop muted autoplay playsinline webkit-playsinline></video>
@@ -258,10 +264,8 @@
         <p>Always smiling, always ready</p>
       </div>
     </div>
-
   </div>
 
-  <!-- PHOTO LANES -->
   <div class="row-headline" id="menu-lane">
     <div class="scrapbook-sub">Handpicked Daily Originals</div>
     <h2>Signature Favourites <span>4 Items</span></h2>
@@ -274,7 +278,6 @@
     <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-4.jpg" alt="Dish 4"></div></div>
   </div>
 
-  <!-- PRODUCTION METADATA PANEL -->
   <div class="row-headline">
     <div class="scrapbook-sub">Where to Find Us</div>
     <h2>Location & Showtimes</h2>
@@ -292,7 +295,6 @@
     </div>
   </div>
 
-  <!-- CINEMA FOOTER BAR -->
   <footer>
     <a href="tel:+18768190186" class="phone-link">+1 (876) 819-0186</a>
     <p>© 2026 Good Day Cafeteria Network. Seamlessly Integrated.</p>
