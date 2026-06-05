@@ -3,62 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Good Day Cafeteria</title>
+  <title>Good Day Cafeteria | Blended Concept</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Blending clean app UI typography with elegant heritage serif & organic script handwriting -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg-cinema: #0a0c10;
-      --card-gradient: linear-gradient(180deg, rgba(10,12,16,0) 20%, rgba(10,12,16,0.95) 100%);
-      --teal-glow: #54b2c0;
-      --green-accent: #8dc63f;
-      --surface: #131722;
+      --bg-cinema: #0a0c10;       /* Flixer deep base black */
+      --surface-card: #131722;    /* Dark app lane tile background */
+      --teal-glow: #54b2c0;       /* Vibrant teal accent line */
+      --mustard: #e59a26;         /* Organic scrapbook warm gold accent */
+      --green-accent: #8dc63f;    /* Ticker banner green */
       --border-line: rgba(255,255,255,0.06);
+      --card-gradient: linear-gradient(180deg, rgba(10,12,16,0) 20%, rgba(10,12,16,0.95) 100%);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-cinema); color: #ffffff; overflow-x: hidden; line-height: 1.4; }
 
-    /* --- FLIXER STYLE STARTUP ANIMATION --- */
+    /* --- 1. FLIXER STARTUP ANIMATION OVERLAY --- */
     #splash-screen {
-      position: fixed;
-      inset: 0;
-      background: #000000;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      /* Soft dark red radial glow behind text mimicking flixer.su */
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
       background: radial-gradient(circle, rgba(138,23,23,0.15) 0%, rgba(0,0,0,1) 70%);
       animation: fadeOutSplash 0.5s ease-in-out forwards;
-      animation-delay: 3.2s; /* Total length of intro show */
+      animation-delay: 3.2s;
       pointer-events: none;
     }
-
     .splash-logo {
-      font-size: 3rem;
-      font-weight: 800;
-      color: #e50914; /* Cinematic Streaming Red */
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: scale(0.6);
+      font-size: 3rem; font-weight: 800; color: #e50914; letter-spacing: 4px; text-transform: uppercase;
+      opacity: 0; transform: scale(0.6);
       animation: flixerZoom 2.5s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
       animation-delay: 0.4s;
     }
-
     .splash-build {
-      position: absolute;
-      bottom: 30px;
-      left: 20px;
-      font-size: 0.65rem;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      position: absolute; bottom: 30px; left: 20px; font-size: 0.65rem; color: rgba(255,255,255,0.3); letter-spacing: 1px; display: flex; align-items: center; gap: 6px;
     }
     .build-dot { width: 6px; height: 6px; background: #e50914; border-radius: 50%; }
 
@@ -67,152 +48,220 @@
       30% { opacity: 1; filter: blur(0px); }
       100% { opacity: 1; transform: scale(1.05); letter-spacing: 6px; }
     }
-    @keyframes fadeOutSplash {
-      to { opacity: 0; visibility: hidden; }
-    }
+    @keyframes fadeOutSplash { to { opacity: 0; visibility: hidden; } }
 
-    /* --- FLICKYSTREAM TRANSPARENT HEADER --- */
+    /* --- 2. FLICKYSTREAM TRANSPARENT NAV HEADER --- */
     .cinema-nav {
-      position: fixed; /* Fixed floating over the billboard video */
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: linear-gradient(to bottom, rgba(10,12,16,0.8) 0%, rgba(10,12,16,0) 100%);
-      backdrop-filter: blur(8px); /* Subtle edge blurring */
-      -webkit-backdrop-filter: blur(8px);
-      padding: 16px 20px;
-      display: flex; justify-content: space-between; align-items: center;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: linear-gradient(to bottom, rgba(10,12,16,0.85) 0%, rgba(10,12,16,0) 100%);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
-    .logo-frame { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; background: #fff; }
-    .logo-frame img { width: 100%; height: 100%; object-fit: cover; }
-    .status-badge { background: rgba(141, 198, 63, 0.2); color: var(--green-accent); font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 30px; }
+    .logo-frame { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; background: #fff; padding: 2px; }
+    .logo-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .status-badge { background: rgba(141, 198, 63, 0.18); color: var(--green-accent); font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 30px; }
 
-    /* --- HERO BILLBOARD --- */
+    /* --- 3. CINEMATIC BACKGROUND BILLBOARD --- */
     .billboard {
-      position: relative;
-      height: 80vh;
-      width: 100%;
-      display: flex; align-items: flex-end;
-      padding: 30px 20px;
-      background: #000;
+      position: relative; height: 78vh; width: 100%; display: flex; align-items: flex-end; padding: 30px 20px; background: #000;
     }
-    .billboard-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+    .billboard-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.65; }
     .billboard-overlay { position: absolute; inset: 0; background: var(--card-gradient); z-index: 1; }
     
     .billboard-meta { position: relative; z-index: 2; width: 100%; }
-    .category-tag { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--teal-glow); margin-bottom: 6px; display: inline-block; }
-    .billboard h1 { font-size: 2.6rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 8px; }
-    .billboard p { font-size: 0.9rem; color: #94a3b8; font-weight: 300; margin-bottom: 24px; max-width: 90%; }
+    .welcome-handwritten { font-family: 'Caveat', cursive; color: var(--mustard); font-size: 1.6rem; margin-bottom: 2px; }
+    .billboard h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; line-height: 1.1; margin-bottom: 8px; }
+    .billboard h1 span { font-family: 'Caveat', cursive; color: var(--mustard); font-size: 2.5rem; font-weight: 400; margin-left: 6px; }
+    .billboard p { font-size: 0.9rem; color: #94a3b8; font-weight: 300; margin-bottom: 22px; max-width: 90%; }
     
     .action-row { display: flex; gap: 12px; }
-    .btn-action { flex: 1; padding: 16px; border-radius: 12px; font-weight: 700; font-size: 0.9rem; text-decoration: none; text-align: center; border: none; }
-    .btn-play { background: #ffffff; color: #0a0c10; box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
-    .btn-info { background: rgba(255,255,255,0.15); color: #ffffff; backdrop-filter: blur(10px); }
+    .btn-action { flex: 1; padding: 15px; border-radius: 12px; font-weight: 700; font-size: 0.9rem; text-decoration: none; text-align: center; border: none; text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn-play { background: var(--mustard); color: white; border: 1px solid var(--mustard); box-shadow: 0 4px 15px rgba(229, 154, 38, 0.3); }
+    .btn-info { background: rgba(255,255,255,0.12); color: #ffffff; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
 
-    /* --- HORIZONTAL STREAMING CHANNELS --- */
-    .row-headline { font-size: 1.1rem; font-weight: 700; padding: 30px 20px 14px; letter-spacing: -0.3px; display: flex; justify-content: space-between; align-items: center; }
-    .row-headline span { font-size: 0.75rem; color: var(--teal-glow); font-weight: 600; }
-    
-    .movie-lane { display: flex; gap: 14px; overflow-x: auto; padding: 0 20px 10px; scrollbar-width: none; }
+    /* --- 4. ORGANIC RUNNING GREEN BANNER --- */
+    .ticker {
+      background: var(--green-accent); color: white; padding: 12px 0; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; overflow: hidden; white-space: nowrap;
+      border-top: 2px dashed rgba(255,255,255,0.3); border-bottom: 2px dashed rgba(255,255,255,0.3);
+    }
+    .ticker-content { display: inline-block; animation: scrollTicker 22s linear infinite; }
+    .ticker-content span { margin-right: 40px; }
+    @keyframes scrollTicker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+
+    /* --- STREAMING CATEGORY HEADLINES --- */
+    .row-headline { padding: 25px 20px 14px; display: flex; flex-direction: column; gap: 2px; }
+    .row-headline .scrapbook-sub { font-family: 'Caveat', cursive; color: var(--mustard); font-size: 1.4rem; line-height: 1; }
+    .row-headline h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.3px; display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .row-headline h2 span { font-size: 0.75rem; color: var(--teal-glow); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; text-transform: uppercase; }
+
+    /* --- HORIZONTAL LANES --- */
+    .movie-lane { display: flex; gap: 16px; overflow-x: auto; padding: 5px 20px 15px; scrollbar-width: none; }
     .movie-lane::-webkit-scrollbar { display: none; }
-    
-    .cinema-card { min-width: 280px; width: 280px; background: var(--surface); border-radius: 14px; overflow: hidden; border: 1px solid var(--border-line); }
-    .video-frame { width: 100%; aspect-ratio: 16 / 9; background: #000; }
+
+    /* --- 5. BLENDED: STREAMING CARDS WITH STAMP EDGES --- */
+    .cinema-stamp-card { 
+      min-width: 270px; width: 270px; 
+      background: white; /* Clean paper background for contrast */
+      padding: 12px; border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+      position: relative;
+    }
+    /* Jagged stamp border overlay trace */
+    .cinema-stamp-card::after {
+      content: ''; position: absolute; inset: 4px; border: 1px dashed var(--mustard); pointer-events: none;
+    }
+    .video-frame { width: 100%; aspect-ratio: 16 / 10; background: #000; overflow: hidden; }
     .video-frame video { width: 100%; height: 100%; object-fit: cover; }
-    .cinema-card-info { padding: 14px; font-weight: 600; font-size: 0.9rem; }
+    
+    .card-caption { padding-top: 10px; text-align: center; color: var(--bg-cinema); }
+    .card-caption h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #1c2b21; }
+    .card-caption p { font-family: 'Caveat', cursive; color: var(--mustard); font-size: 1.1rem; }
 
-    /* --- PHOTO POSTERS --- */
-    .square-lane { display: flex; gap: 12px; overflow-x: auto; padding: 0 20px; scrollbar-width: none; }
-    .square-lane::-webkit-scrollbar { display: none; }
-    .square-poster { min-width: 140px; width: 140px; aspect-ratio: 1 / 1; background: var(--surface); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-line); }
-    .square-poster img { width: 100%; height: 100%; object-fit: cover; }
+    /* Subtle alternate stamp angles mimicking a real application scrapbook */
+    .movie-lane .cinema-stamp-card:nth-child(even) { transform: rotate(1deg); }
+    .movie-lane .cinema-stamp-card:nth-child(odd) { transform: rotate(-0.5deg); }
 
-    /* --- INFO DATA PANEL --- */
-    .meta-slate { background: var(--surface); margin: 30px 20px; padding: 20px; border-radius: 16px; border: 1px solid var(--border-line); }
-    .meta-slate h4 { font-size: 0.75rem; text-transform: uppercase; color: var(--teal-glow); letter-spacing: 1px; margin-bottom: 4px; }
-    .meta-slate p { font-size: 1rem; font-weight: 600; margin-bottom: 16px; color: #e2e8f0; }
-    .meta-slate p:last-child { margin-bottom: 0; }
+    /* --- 6. BLENDED: PHOTO POSTCARDS IN HORIZONTAL SLIDER --- */
+    .postcard-tile { 
+      min-width: 140px; width: 140px; aspect-ratio: 1 / 1; 
+      background: #ffffff; padding: 6px; 
+      border: 1px solid #e8dec9; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transform: rotate(1deg);
+    }
+    .postcard-inner { width: 100%; height: 100%; overflow: hidden; background: #222; }
+    .postcard-inner img { width: 100%; height: 100%; object-fit: cover; }
 
-    footer { background: #020408; padding: 40px 20px; text-align: center; border-top: 1px solid var(--border-line); }
-    footer p { font-size: 0.8rem; color: #475569; margin-top: 10px; }
+    /* --- STUDIO HERITAGE METADATA PANEL --- */
+    .meta-slate { 
+      background: var(--surface-card); margin: 25px 20px 40px; padding: 24px; border-radius: 16px; 
+      border: 1px solid var(--border-line); position: relative;
+    }
+    .meta-slate::before {
+      content: ''; position: absolute; inset: 8px; border: 1px dashed rgba(255, 255, 255, 0.05); border-radius: 12px; pointer-events: none;
+    }
+    .info-section { margin-bottom: 18px; position: relative; z-index: 2; }
+    .info-section:last-child { margin-bottom: 0; }
+    .info-section h4 { font-family: 'Caveat', cursive; color: var(--mustard); font-size: 1.4rem; margin-bottom: 2px; }
+    .info-section p { font-size: 0.95rem; font-weight: 600; color: #e2e8f0; }
+
+    /* --- FOOTER --- */
+    footer { background: #040609; padding: 45px 20px; text-align: center; border-top: 1px solid var(--border-line); }
+    footer .phone-link { font-family: 'Playfair Display', serif; color: var(--mustard); font-size: 1.4rem; text-decoration: none; font-weight: 700; display: inline-block; }
+    footer p { font-size: 0.75rem; color: #475569; margin-top: 8px; }
   </style>
 </head>
 <body>
 
-  <!-- FLIXER STARTUP SPLASHSCREEN OVERLAY -->
+  <!-- 1. FLIXER STARTUP SPLASHSCREEN -->
   <div id="splash-screen">
     <div class="splash-logo">Good Day</div>
     <div class="splash-build">
-      <div class="build-dot"></div> BUILD 0605-2026
+      <div class="build-dot"></div> PRODUCTION REEL BUILD 0605-2026
     </div>
   </div>
 
-  <!-- FLICKYSTREAM STYLE TRANSPARENT TOP NAV -->
+  <!-- 2. FLICKYSTREAM STYLE BLURRED FLOATING TOP NAV -->
   <nav class="cinema-nav">
     <div class="logo-frame">
       <img src="images/goodday-logo.png" alt="Logo">
     </div>
-    <div class="status-badge">● Open Now</div>
+    <div class="status-badge">● Streaming Fresh</div>
   </nav>
 
-  <!-- BILLBOARD HERO -->
+  <!-- 3. HERO VIDEO BILLBOARD -->
   <section class="billboard">
     <video class="billboard-video" src="images/video1.mp4" loop muted autoplay playsinline webkit-playsinline></video>
     <div class="billboard-overlay"></div>
     <div class="billboard-meta">
-      <span class="category-tag">Trending #1 Today</span>
-      <h1>Good Day Cafeteria</h1>
-      <p>Montego Bay's luxury streaming spot for hot cafeteria lunch specialties, gourmet wraps, cakes, and iced frappes.</p>
+      <div class="welcome-handwritten">Welcome Home to</div>
+      <h1>Good Day Cafeteria <span>Made Fresh Daily!</span></h1>
+      <p>Montego Bay's luxury destination for traditional hot lunch platters, gourmet wraps, specialty desserts, and premium blends.</p>
       <div class="action-row">
-        <a href="tel:+18768190186" class="btn-action btn-play">► Call to Order</a>
-        <a href="#menu-lane" class="btn-action btn-info">Browse Menu</a>
+        <a href="tel:+18768190186" class="btn-action btn-play">► Order Line</a>
+        <a href="#menu-lane" class="btn-action btn-info">Menu Tracks</a>
       </div>
     </div>
   </section>
 
-  <!-- VIDEO CARDS HORIZONTAL LANE -->
-  <div class="row-headline">Featured Visual Previews <span>See All</span></div>
+  <!-- 4. ORGANIC RUNNING GREEN TEXT TICKER -->
+  <div class="ticker">
+    <div class="ticker-content">
+      <span>✦ GOOD FOOD, GOOD VIBES, GOOD DAY</span>
+      <span>✦ AUTHENTIC PLATTERS SERVED DAILY</span>
+      <span>✦ MONTEGO BAY CULINARY SPOTLIGHT</span>
+      <span>✦ GOOD FOOD, GOOD VIBES, GOOD DAY</span>
+    </div>
+  </div>
+
+  <!-- 5. BLENDED VIDEO TRAILER CHANNEL (STAMP TILES OVER STREAMING LANE) -->
+  <div class="row-headline">
+    <div class="scrapbook-sub">See what's cooking</div>
+    <h2>Featured Kitchen Feeds <span>See All</span></h2>
+  </div>
+
   <div class="movie-lane">
     
-    <div class="cinema-card">
+    <!-- Video Stamp 1 -->
+    <div class="cinema-stamp-card">
       <div class="video-frame">
         <video src="images/video2.mp4" loop muted autoplay playsinline webkit-playsinline></video>
       </div>
-      <div class="cinema-card-info">Gourmet Selections & Cafeteria Platters</div>
+      <div class="card-caption">
+        <h3>Fresh Ingredients, Rich Flavours</h3>
+        <p>Traditional style creations</p>
+      </div>
     </div>
 
-    <div class="cinema-card">
+    <!-- Video Stamp 2 -->
+    <div class="cinema-stamp-card">
       <div class="video-frame">
         <video src="images/video3.mp4" loop muted autoplay playsinline webkit-playsinline></video>
       </div>
-      <div class="cinema-card-info">Kitchen Action & Fresh Good Vibes</div>
+      <div class="card-caption">
+        <h3>Good Vibes and Energy</h3>
+        <p>Always smiling, always ready</p>
+      </div>
     </div>
 
   </div>
 
-  <!-- SQUARE PICTURE POSTERS LANE -->
-  <div class="row-headline" id="menu-lane">Signature Menu Favourites <span>4 Items</span></div>
-  <div class="square-lane">
-    <div class="square-poster"><img src="images/dish-1.jpg" alt="Dish 1"></div>
-    <div class="square-poster"><img src="images/dish-2.jpg" alt="Dish 2"></div>
-    <div class="square-poster"><img src="images/dish-3.jpg" alt="Dish 3"></div>
-    <div class="square-poster"><img src="images/dish-4.jpg" alt="Dish 4"></div>
+  <!-- 6. BLENDED PHOTO LANES (POSTCARD POLAROIDS INSIDE CAROUSEL) -->
+  <div class="row-headline" id="menu-lane">
+    <div class="scrapbook-sub">Handpicked Daily Originals</div>
+    <h2>Signature Favourites <span>4 Items</span></h2>
   </div>
 
-  <!-- METADATA INFORMATION SLATE -->
-  <div class="row-headline">Location & Showtimes</div>
+  <div class="movie-lane" style="padding-bottom: 25px;">
+    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-1.jpg" alt="Dish 1"></div></div>
+    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-2.jpg" alt="Dish 2"></div></div>
+    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-3.jpg" alt="Dish 3"></div></div>
+    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-4.jpg" alt="Dish 4"></div></div>
+  </div>
+
+  <!-- PRODUCTION META DATA SLATE -->
+  <div class="row-headline">
+    <div class="scrapbook-sub">Where to Find Us</div>
+    <h2>Location & Showtimes</h2>
+  </div>
+
   <div class="meta-slate">
-    <h4>Studio Location</h4>
-    <p>30-34 Market Street, Montego Bay</p>
-
-    <h4>Operating Hours</h4>
-    <p>Mon - Thurs & Sat: 7:00 AM - 6:00 PM<br>Fridays: 7:00 AM - 7:00 PM</p>
+    <div class="info-section">
+      <h4>Our Location</h4>
+      <p>30–34 Market Street, Montego Bay</p>
+    </div>
+    <div class="info-section">
+      <h4>Operating Hours</h4>
+      <p>Mon - Thurs & Sat: 7:00 AM – 6:00 PM</p>
+      <p>Fridays: 7:00 AM – 7:00 PM</p>
+    </div>
   </div>
 
-  <!-- STUDIO FOOTER -->
+  <!-- CINEMA FOOTER BAR -->
   <footer>
-    <p style="color: var(--teal-glow); font-weight: 700; font-size: 1rem;">ORDER LINE: +1 (876) 819-0186</p>
-    <p>© 2026 Good Day Cafeteria Production Network.</p>
+    <a href="tel:+18768190186" class="phone-link">+1 (876) 819-0186</a>
+    <p>© 2026 Good Day Cafeteria Network. Seamlessly Integrated.</p>
   </footer>
 
 </body>
