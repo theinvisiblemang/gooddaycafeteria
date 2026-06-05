@@ -22,7 +22,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-cinema); color: #ffffff; overflow-x: hidden; line-height: 1.4; }
 
-    /* --- 1. BRAND-MATCHED STARTUP ANIMATION OVERLAY --- */
+    /* --- 1. STARTUP ANIMATION OVERLAY --- */
     #splash-screen {
       position: fixed; 
       inset: 0; 
@@ -31,10 +31,9 @@
       flex-direction: column; 
       justify-content: center; 
       align-items: center;
-      /* Pure solid black background ensures zero layout layout leaking at start */
       background: #000000;
-      animation: fadeOutSplash 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-      animation-delay: 3.2s;
+      animation: fadeOutSplash 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      animation-delay: 1.2s;
       pointer-events: none;
     }
     
@@ -49,9 +48,9 @@
       text-align: center;
       z-index: 2;
       opacity: 0;
-      transform: scale(0.85);
-      animation: brandZoom 2.5s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
-      animation-delay: 0.2s;
+      transform: scale(0.9);
+      animation: brandZoom 1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+      animation-delay: 0.1s;
     }
 
     .splash-logo {
@@ -86,9 +85,9 @@
     .build-dot { width: 6px; height: 6px; background: var(--mustard); border-radius: 50%; }
 
     @keyframes brandZoom {
-      0% { opacity: 0; transform: scale(0.85); filter: blur(4px); }
-      25% { opacity: 1; filter: blur(0px); }
-      100% { opacity: 1; transform: scale(1.03); }
+      0% { opacity: 0; transform: scale(0.9); filter: blur(4px); }
+      30% { opacity: 1; filter: blur(0px); }
+      100% { opacity: 1; transform: scale(1.02); }
     }
     
     @keyframes fadeOutSplash {
@@ -96,7 +95,7 @@
       100% { opacity: 0; visibility: hidden; }
     }
 
-    /* --- 2. FLICKYSTREAM STYLE BLURRED FLOATING HEADER --- */
+    /* --- 2. FLOATING HEADER --- */
     .cinema-nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: linear-gradient(to bottom, rgba(10,12,16,0.85) 0%, rgba(10,12,16,0) 100%);
@@ -108,11 +107,12 @@
     .logo-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
     .status-badge { background: rgba(141, 198, 63, 0.18); color: var(--green-accent); font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 30px; }
 
-    /* --- 3. HERO VIDEO BILLBOARD DISPLAY --- */
+    /* --- 3. HERO VIDEO BILLBOARD --- */
     .billboard {
       position: relative; height: 78vh; width: 100%; display: flex; align-items: flex-end; padding: 30px 20px; background: #000;
     }
-    .billboard-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.65; }
+    /* Optimized: added will-change to boost mobile hardware acceleration */
+    .billboard-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.65; will-change: transform; }
     .billboard-overlay { position: absolute; inset: 0; background: var(--card-gradient); z-index: 1; }
     
     .billboard-meta { position: relative; z-index: 2; width: 100%; }
@@ -126,12 +126,13 @@
     .btn-play { background: var(--mustard); color: white; border: 1px solid var(--mustard); box-shadow: 0 4px 15px rgba(229, 154, 38, 0.3); }
     .btn-info { background: rgba(255,255,255,0.12); color: #ffffff; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
 
-    /* --- 4. RUNNING GREEN BRAND TICKER --- */
+    /* --- 4. RUNNING TICKER STRIP --- */
     .ticker {
       background: var(--green-accent); color: white; padding: 12px 0; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; overflow: hidden; white-space: nowrap;
       border-top: 2px dashed rgba(255,255,255,0.3); border-bottom: 2px dashed rgba(255,255,255,0.3);
     }
-    .ticker-content { display: inline-block; animation: scrollTicker 22s linear infinite; }
+    /* Optimized: uses 3d translation forcing GPU rendering */
+    .ticker-content { display: inline-block; animation: scrollTicker 22s linear infinite; backface-visibility: hidden; }
     .ticker-content span { margin-right: 40px; }
     @keyframes scrollTicker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
 
@@ -141,11 +142,11 @@
     .row-headline h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.3px; display: flex; justify-content: space-between; align-items: center; width: 100%; }
     .row-headline h2 span { font-size: 0.75rem; color: var(--teal-glow); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; text-transform: uppercase; }
 
-    /* --- HORIZONTAL LANES CORES --- */
-    .movie-lane { display: flex; gap: 16px; overflow-x: auto; padding: 5px 20px 15px; scrollbar-width: none; }
+    /* --- HORIZONTAL LANES --- */
+    .movie-lane { display: flex; gap: 16px; overflow-x: auto; padding: 5px 20px 15px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .movie-lane::-webkit-scrollbar { display: none; }
 
-    /* --- 5. CINEMA FEED STAMP FINISH CARDS --- */
+    /* --- 5. FEED STAMP CARDS --- */
     .cinema-stamp-card { 
       min-width: 270px; width: 270px; 
       background: white; 
@@ -157,7 +158,7 @@
     .cinema-stamp-card::after {
       content: ''; position: absolute; inset: 4px; border: 1px dashed var(--mustard); pointer-events: none;
     }
-    .video-frame { width: 100%; aspect-ratio: 16 / 10; background: #000; overflow: hidden; }
+    .video-frame { width: 100%; aspect-ratio: 16 / 10; background: #000; overflow: hidden; position: relative; }
     .video-frame video { width: 100%; height: 100%; object-fit: cover; }
     
     .card-caption { padding-top: 10px; text-align: center; color: var(--bg-cinema); }
@@ -190,7 +191,7 @@
     .info-section h4 { font-family: 'Caveat', cursive; color: var(--mustard); font-size: 1.4rem; margin-bottom: 2px; }
     .info-section p { font-size: 0.95rem; font-weight: 600; color: #e2e8f0; }
 
-    /* --- FOOTER BRADING --- */
+    /* --- FOOTER --- */
     footer { background: #040609; padding: 45px 20px; text-align: center; border-top: 1px solid var(--border-line); }
     footer .phone-link { font-family: 'Playfair Display', serif; color: var(--mustard); font-size: 1.4rem; text-decoration: none; font-weight: 700; display: inline-block; }
     footer p { font-size: 0.75rem; color: #475569; margin-top: 8px; }
@@ -198,6 +199,7 @@
 </head>
 <body>
 
+  <!-- 1. STARTUP INTRO OVERLAY -->
   <div id="splash-screen">
     <div class="splash-glow-container"></div>
     <div class="splash-text-group">
@@ -209,15 +211,19 @@
     </div>
   </div>
 
+  <!-- 2. TRANSPARENT NAV HEADER -->
   <nav class="cinema-nav">
     <div class="logo-frame">
-      <img src="images/goodday-logo.png" alt="Logo">
+      <!-- Optimized: Added explicit lazy decoding -->
+      <img src="images/goodday-logo.png" alt="Logo" decoding="async">
     </div>
     <div class="status-badge">● Streaming Fresh</div>
   </nav>
 
+  <!-- 3. MAIN BILLBOARD OVERLAY FRAME -->
   <section class="billboard">
-    <video class="billboard-video" src="images/video1.mp4" loop muted autoplay playsinline webkit-playsinline></video>
+    <!-- Optimized: Added preload metadata and poster fallback -->
+    <video class="billboard-video" src="images/video1.mp4" poster="images/dish-1.jpg" preload="metadata" loop muted autoplay playsinline webkit-playsinline></video>
     <div class="billboard-overlay"></div>
     <div class="billboard-meta">
       <div class="welcome-handwritten">Welcome Home to</div>
@@ -230,6 +236,7 @@
     </div>
   </section>
 
+  <!-- 4. RUNNING TICKER STRIP -->
   <div class="ticker">
     <div class="ticker-content">
       <span>✦ GOOD FOOD, GOOD VIBES, GOOD DAY</span>
@@ -239,6 +246,7 @@
     </div>
   </div>
 
+  <!-- 5. KITCHEN STAMP TRAILER FEED ROW -->
   <div class="row-headline">
     <div class="scrapbook-sub">See what's cooking</div>
     <h2>Featured Kitchen Feeds <span>See All</span></h2>
@@ -247,7 +255,8 @@
   <div class="movie-lane">
     <div class="cinema-stamp-card">
       <div class="video-frame">
-        <video src="images/video2.mp4" loop muted autoplay playsinline webkit-playsinline></video>
+        <!-- Optimized: Removed autoplay so it doesn't fight the hero video for bandwidth -->
+        <video src="images/video2.mp4" poster="images/dish-2.jpg" preload="metadata" loop muted playsinline webkit-playsinline></video>
       </div>
       <div class="card-caption">
         <h3>Fresh Ingredients, Rich Flavours</h3>
@@ -257,7 +266,8 @@
 
     <div class="cinema-stamp-card">
       <div class="video-frame">
-        <video src="images/video3.mp4" loop muted autoplay playsinline webkit-playsinline></video>
+        <!-- Optimized: Removed autoplay so it doesn't fight the hero video for bandwidth -->
+        <video src="images/video3.mp4" poster="images/dish-3.jpg" preload="metadata" loop muted playsinline webkit-playsinline></video>
       </div>
       <div class="card-caption">
         <h3>Good Vibes and Energy</h3>
@@ -266,18 +276,21 @@
     </div>
   </div>
 
+  <!-- 6. ALBUM POSTCARD SLIDER ROW -->
   <div class="row-headline" id="menu-lane">
     <div class="scrapbook-sub">Handpicked Daily Originals</div>
     <h2>Signature Favourites <span>4 Items</span></h2>
   </div>
 
   <div class="movie-lane" style="padding-bottom: 25px;">
-    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-1.jpg" alt="Dish 1"></div></div>
-    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-2.jpg" alt="Dish 2"></div></div>
-    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-3.jpg" alt="Dish 3"></div></div>
-    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-4.jpg" alt="Dish 4"></div></div>
+    <!-- Optimized: Added native loading="lazy" attributes so these images only download when scrolled to -->
+    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-1.jpg" alt="Dish 1" loading="lazy" decoding="async"></div></div>
+    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-2.jpg" alt="Dish 2" loading="lazy" decoding="async"></div></div>
+    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-3.jpg" alt="Dish 3" loading="lazy" decoding="async"></div></div>
+    <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-4.jpg" alt="Dish 4" loading="lazy" decoding="async"></div></div>
   </div>
 
+  <!-- DETAILS BLOCK -->
   <div class="row-headline">
     <div class="scrapbook-sub">Where to Find Us</div>
     <h2>Location & Showtimes</h2>
@@ -295,10 +308,28 @@
     </div>
   </div>
 
+  <!-- FOOTER -->
   <footer>
     <a href="tel:+18768190186" class="phone-link">+1 (876) 819-0186</a>
     <p>© 2026 Good Day Cafeteria Network. Seamlessly Integrated.</p>
   </footer>
+
+  <!-- Optimized: Small script to play/pause lane videos automatically when they scroll into view -->
+  <script>
+    const laneVideos = document.querySelectorAll('.cinema-stamp-card video');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.play().catch(() => {});
+          } else {
+            entry.target.pause();
+          }
+        });
+      }, { threshold: 0.25 });
+      laneVideos.forEach(video => observer.observe(video));
+    }
+  </script>
 
 </body>
 </html>
