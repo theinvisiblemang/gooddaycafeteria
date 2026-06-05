@@ -111,7 +111,6 @@
     .billboard {
       position: relative; height: 78vh; width: 100%; display: flex; align-items: flex-end; padding: 30px 20px; background: #000;
     }
-    /* Optimized: added will-change to boost mobile hardware acceleration */
     .billboard-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.65; will-change: transform; }
     .billboard-overlay { position: absolute; inset: 0; background: var(--card-gradient); z-index: 1; }
     
@@ -131,7 +130,6 @@
       background: var(--green-accent); color: white; padding: 12px 0; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; overflow: hidden; white-space: nowrap;
       border-top: 2px dashed rgba(255,255,255,0.3); border-bottom: 2px dashed rgba(255,255,255,0.3);
     }
-    /* Optimized: uses 3d translation forcing GPU rendering */
     .ticker-content { display: inline-block; animation: scrollTicker 22s linear infinite; backface-visibility: hidden; }
     .ticker-content span { margin-right: 40px; }
     @keyframes scrollTicker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
@@ -159,7 +157,7 @@
       content: ''; position: absolute; inset: 4px; border: 1px dashed var(--mustard); pointer-events: none;
     }
     .video-frame { width: 100%; aspect-ratio: 16 / 10; background: #000; overflow: hidden; position: relative; }
-    .video-frame video { width: 100%; height: 100%; object-fit: cover; }
+    .video-frame video { width: 100%; height: 100%; object-fit: cover; background: #000; }
     
     .card-caption { padding-top: 10px; text-align: center; color: var(--bg-cinema); }
     .card-caption h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #1c2b21; }
@@ -214,7 +212,6 @@
   <!-- 2. TRANSPARENT NAV HEADER -->
   <nav class="cinema-nav">
     <div class="logo-frame">
-      <!-- Optimized: Added explicit lazy decoding -->
       <img src="images/goodday-logo.png" alt="Logo" decoding="async">
     </div>
     <div class="status-badge">● Streaming Fresh</div>
@@ -222,8 +219,10 @@
 
   <!-- 3. MAIN BILLBOARD OVERLAY FRAME -->
   <section class="billboard">
-    <!-- Optimized: Added preload metadata and poster fallback -->
-    <video class="billboard-video" src="images/video1.mp4" poster="images/dish-1.jpg" preload="metadata" loop muted autoplay playsinline webkit-playsinline></video>
+    <!-- Fixed explicit file formatting markers -->
+    <video class="billboard-video" preload="auto" loop muted autoplay playsinline webkit-playsinline>
+      <source src="images/video1.mp4" type="video/mp4">
+    </video>
     <div class="billboard-overlay"></div>
     <div class="billboard-meta">
       <div class="welcome-handwritten">Welcome Home to</div>
@@ -255,8 +254,10 @@
   <div class="movie-lane">
     <div class="cinema-stamp-card">
       <div class="video-frame">
-        <!-- Optimized: Removed autoplay so it doesn't fight the hero video for bandwidth -->
-        <video src="images/video2.mp4" poster="images/dish-2.jpg" preload="metadata" loop muted playsinline webkit-playsinline></video>
+        <!-- Fixed: Adding fallback video source architecture and explicit styling loops -->
+        <video preload="auto" loop muted playsinline webkit-playsinline>
+          <source src="images/video2.mp4" type="video/mp4">
+        </video>
       </div>
       <div class="card-caption">
         <h3>Fresh Ingredients, Rich Flavours</h3>
@@ -266,8 +267,9 @@
 
     <div class="cinema-stamp-card">
       <div class="video-frame">
-        <!-- Optimized: Removed autoplay so it doesn't fight the hero video for bandwidth -->
-        <video src="images/video3.mp4" poster="images/dish-3.jpg" preload="metadata" loop muted playsinline webkit-playsinline></video>
+        <video preload="auto" loop muted playsinline webkit-playsinline>
+          <source src="images/video3.mp4" type="video/mp4">
+        </video>
       </div>
       <div class="card-caption">
         <h3>Good Vibes and Energy</h3>
@@ -283,7 +285,6 @@
   </div>
 
   <div class="movie-lane" style="padding-bottom: 25px;">
-    <!-- Optimized: Added native loading="lazy" attributes so these images only download when scrolled to -->
     <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-1.jpg" alt="Dish 1" loading="lazy" decoding="async"></div></div>
     <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-2.jpg" alt="Dish 2" loading="lazy" decoding="async"></div></div>
     <div class="postcard-tile"><div class="postcard-inner"><img src="images/dish-3.jpg" alt="Dish 3" loading="lazy" decoding="async"></div></div>
@@ -314,21 +315,33 @@
     <p>© 2026 Good Day Cafeteria Network. Seamlessly Integrated.</p>
   </footer>
 
-  <!-- Optimized: Small script to play/pause lane videos automatically when they scroll into view -->
+  <!-- Fixed script verification logic -->
   <script>
-    const laneVideos = document.querySelectorAll('.cinema-stamp-card video');
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.play().catch(() => {});
-          } else {
-            entry.target.pause();
-          }
-        });
-      }, { threshold: 0.25 });
-      laneVideos.forEach(video => observer.observe(video));
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+      // Force mobile fallback activation for layout engine parsing
+      const billboardVideo = document.querySelector('.billboard-video');
+      if (billboardVideo) {
+        billboardVideo.play().catch(err => console.log("Billboard auto-play pending gesture:", err));
+      }
+
+      const laneVideos = document.querySelectorAll('.cinema-stamp-card video');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+              video.play().catch(err => console.log("Video playback blocked:", err));
+            } else {
+              video.pause();
+            }
+          });
+        }, { threshold: 0.1 });
+        laneVideos.forEach(video => observer.observe(video));
+      } else {
+        // Fallback for primitive mobile rendering layers
+        laneVideos.forEach(video => video.play().catch(()=>{}));
+      }
+    });
   </script>
 
 </body>
